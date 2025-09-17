@@ -6,12 +6,15 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movementVector;
     Rigidbody Rigidbody;
     bool Interactive;
+    PlayerInput input;
     GameObject currentInteraction;
+    [SerializeField] GameObject interactionManager;
 
     private void Awake()
     {
+        //interactionManager = FindAnyObjectByType<GameObject>().name.CompareTo("InteractionManager");
         Rigidbody = this.GetComponent<Rigidbody>();
-        
+        input = this.GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -36,17 +39,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Interactable"))
-        {
-            Interactive = false;
-        }
+        Interactive = false;
     }
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (Interactive)
+        if (Interactive && currentInteraction != null)
         {
-            //currentInteraction.GetComponent<>
+            currentInteraction.GetComponent<Interactive>().interacted = true;
         }
     }
 }
