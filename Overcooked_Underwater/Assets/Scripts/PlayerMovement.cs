@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Interactive = false;
+        if (other.CompareTag("Interactable"))
+        {
+            other.gameObject.GetComponent<Interactive>().interacted = false;
+        }
     }
 
     public void Interact(InputAction.CallbackContext context)

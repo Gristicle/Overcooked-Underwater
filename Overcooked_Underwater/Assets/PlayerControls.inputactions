@@ -104,7 +104,7 @@
                     "name": "",
                     "id": "8db50a78-c6d3-4dfd-b535-efd6428a5077",
                     "path": "<Keyboard>/i",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",

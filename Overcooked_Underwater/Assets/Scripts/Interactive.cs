@@ -1,17 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interactive : MonoBehaviour
 {
-    float interactionTime;
+    [SerializeField] float interactionTime;
     public bool interacted;
     public int Time;
-    int currentTime;
+    [SerializeField] int currentTime;
+    bool interactable;
+    [SerializeField] Image alert;
     void Start()
     {
         setInteractive();
         currentTime = 0;
         interacted = true;
+        interactable = false;
+        alert.enabled = false;
     }
 
     // Update is called once per frame
@@ -25,14 +30,18 @@ public class Interactive : MonoBehaviour
         {
             startInteraction();
         }
-        if(interactionTime > 2)
+        if (interacted && interactable)
         {
-            do
+            interactionTime += 0.01f;
+            if (interactionTime >= 2)
             {
-                interactionTime += 0.1f;
-                Debug.Log("Interacted");
+                interactable = false;
+                Complete();
             }
-            while (interacted);
+        }
+        if (alert.enabled && currentTime > -300 && currentTime < 0)
+        {
+            alert.GetComponent<Image>().color = new Color(0.8156863f, 0, 0);
         }
     }
 
@@ -43,20 +52,19 @@ public class Interactive : MonoBehaviour
 
     void startInteraction()
     {
+        alert.GetComponent<Image>().color = new Color(0.7484276f, 0.5275412f, 0.1671017f);
+        alert.enabled = true;
+        currentTime = -500;
         interacted = false;
+        interactable = true;
         interactionTime = 0;
-        //StartCoroutine(Interacting());
     }
 
-    /*IEnumerator Interacting()
+    void Complete()
     {
-        for (int i = 0; i < 20; i++)
-        {
-            yield return new WaitForSeconds(0.1f);
-            if (interacted)
-            {
-                interactionTime += 1f;
-            }
-        }
-    }*/
+        alert.enabled = false;
+        setInteractive();
+        currentTime = 0;
+        Debug.Log("Complete");
+    }
 }
