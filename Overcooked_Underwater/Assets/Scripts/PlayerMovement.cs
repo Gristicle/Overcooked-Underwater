@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput input;
     GameObject currentInteraction;
     [SerializeField] GameObject interactionManager;
+    MeshCollider ROV;
 
     private void Awake()
     {
         //interactionManager = FindAnyObjectByType<GameObject>().name.CompareTo("InteractionManager");
         Rigidbody = this.GetComponent<Rigidbody>();
         input = this.GetComponent<PlayerInput>();
+        ROV = this.GetComponentInChildren<MeshCollider>();
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         movementVector = context.ReadValue<Vector2>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Interactable"))
         {
