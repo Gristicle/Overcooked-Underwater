@@ -10,6 +10,8 @@ public class Interactive : MonoBehaviour
     [SerializeField] int currentTime;
     bool interactable;
     [SerializeField] Image alert;
+    [SerializeField] Image fillBar;
+    float currentFill;
     void Start()
     {
         setInteractive();
@@ -17,11 +19,13 @@ public class Interactive : MonoBehaviour
         interacted = true;
         interactable = false;
         alert.enabled = false;
+        currentFill = fillBar.GetComponent<Image>().fillAmount;
     }
 
     // Update is called once per frame
     void Update()
     {
+        fillBar.GetComponent<Image>().fillAmount = interactionTime/2;
         if (currentTime != Time)
         {
             currentTime++;
@@ -62,6 +66,7 @@ public class Interactive : MonoBehaviour
 
     void Complete()
     {
+        interactionTime = 0;
         alert.enabled = false;
         setInteractive();
         currentTime = 0;
