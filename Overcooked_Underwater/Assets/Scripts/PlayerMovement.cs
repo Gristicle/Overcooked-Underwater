@@ -1,22 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Tools
+{
+    None,
+    Tool1,
+    Tool2
+}
+
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 movementVector;
+    Vector2 movementVector;
     Rigidbody Rigidbody;
     bool Interactive;
-    PlayerInput input;
     GameObject currentInteraction;
     [SerializeField] GameObject interactionManager;
-    MeshCollider ROV;
 
     private void Awake()
     {
-        //interactionManager = FindAnyObjectByType<GameObject>().name.CompareTo("InteractionManager");
         Rigidbody = this.GetComponent<Rigidbody>();
-        input = this.GetComponent<PlayerInput>();
-        ROV = this.GetComponentInChildren<MeshCollider>();
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        movementVector = context.ReadValue<Vector3>();
+        movementVector = context.ReadValue<Vector2>();
     }
 
     private void OnTriggerStay(Collider other)
