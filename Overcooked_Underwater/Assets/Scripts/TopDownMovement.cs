@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class TopDownMovement : MonoBehaviour
 {
-    Vector3 movementVector;
+    Vector2 movementVector;
     Rigidbody Rigidbody;
     bool Interactive;
     PlayerInput input;
@@ -22,12 +22,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Rigidbody.AddForce(movementVector.x/5, movementVector.y/5, 0, ForceMode.Impulse);
+        Rigidbody.AddForce(movementVector.x/5, 0, movementVector.y/5, ForceMode.Impulse);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        movementVector = context.ReadValue<Vector3>();
+
+        Vector3 move = new Vector3(movementVector.x / 5, 0, movementVector.y / 5);
+    
+        movementVector = context.ReadValue<Vector2>();
     }
 
     private void OnTriggerStay(Collider other)
