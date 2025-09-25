@@ -8,29 +8,30 @@ public class TopDownMovement : MonoBehaviour
     bool Interactive;
     PlayerInput input;
     GameObject currentInteraction;
-    [SerializeField] GameObject interactionManager;
-    MeshCollider ROV;
+    //[SerializeField] GameObject interactionManager;
+    BoxCollider ROV;
 
     private void Awake()
     {
         //interactionManager = FindAnyObjectByType<GameObject>().name.CompareTo("InteractionManager");
         Rigidbody = this.GetComponent<Rigidbody>();
         input = this.GetComponent<PlayerInput>();
-        ROV = this.GetComponentInChildren<MeshCollider>();
+        ROV = this.GetComponentInChildren<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rigidbody.AddForce(movementVector.x/5, 0, movementVector.y/5, ForceMode.Impulse);
+        Rigidbody.AddForce(movementVector.x/50, 0, movementVector.y/50, ForceMode.Impulse);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
 
-        Vector3 move = new Vector3(movementVector.x / 5, 0, movementVector.y / 5);
+        Vector2 move = new Vector3(movementVector.x / 50, 0, movementVector.y / 50);
     
         movementVector = context.ReadValue<Vector2>();
+        Debug.Log("moving");
     }
 
     private void OnTriggerStay(Collider other)
