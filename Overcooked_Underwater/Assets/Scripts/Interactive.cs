@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Interactive : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Interactive : MonoBehaviour
     [SerializeField] Image alert;
     [SerializeField] Image fillBar;
     float currentFill;
+    public int requiredTool;
+    [SerializeField] TMP_Text Tool;
     void Start()
     {
         setInteractive();
@@ -52,11 +55,13 @@ public class Interactive : MonoBehaviour
     void setInteractive()
     {
         Time = (Random.Range(10, 1000));
+        chooseTool();
     }
 
     void startInteraction()
     {
         alert.GetComponent<Image>().color = new Color(0.7484276f, 0.5275412f, 0.1671017f);
+        Tool.text = new string($"{requiredTool}");
         alert.enabled = true;
         currentTime = -500;
         interacted = false;
@@ -66,10 +71,24 @@ public class Interactive : MonoBehaviour
 
     void Complete()
     {
+        Tool.text = new string("");
         interactionTime = 0;
         alert.enabled = false;
         setInteractive();
         currentTime = 0;
         Debug.Log("Complete");
+    }
+
+    void chooseTool()
+    {
+        int Required = Random.Range(0, 2);
+        if (Required == 1)
+        {
+            requiredTool = Random.Range(1, 2);
+        }
+        else
+        {
+            requiredTool = 0;
+        }
     }
 }

@@ -125,8 +125,8 @@
                 {
                     "name": "",
                     "id": "414c6a5a-4360-40eb-9c0f-48e3eab280ff",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "path": "<Keyboard>/o",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Drop",

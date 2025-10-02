@@ -15,9 +15,13 @@ public class PlayerMovement : MonoBehaviour
     bool Interactive;
     GameObject currentInteraction;
     [SerializeField] GameObject interactionManager;
+    GameObject tool;
+    int currentTool;
+    bool holding;
 
     private void Awake()
     {
+        holding = false;
         Rigidbody = this.GetComponent<Rigidbody>();
     }
 
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Rigidbody.AddForce(movementVector.x/5, movementVector.y/5, 0, ForceMode.Impulse);
+        Debug.Log(holding);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -39,14 +44,19 @@ public class PlayerMovement : MonoBehaviour
             Interactive = true;
             currentInteraction = other.gameObject;
         }
+        else if (other.CompareTag("Tool"))
+        {
+            Interactive = true;
+            tool = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Interactive = false;
         if (other.CompareTag("Interactable"))
         {
             other.gameObject.GetComponent<Interactive>().interacted = false;
+            Interactive = false;
         }
     }
 
@@ -54,7 +64,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Interactive && currentInteraction != null)
         {
-            currentInteraction.GetComponent<Interactive>().interacted = true;
+            if(currentInteraction.GetComponent<Interactive>().requiredTool == 0 || currentInteraction.GetComponent<Interactive>().requiredTool == currentTool)
+            {
+                currentInteraction.GetComponent<Interactive>().interacted = true;
+            }
+        }
+    }
+
+    public void Tool(InputAction.CallbackContext context)
+    {
+        if(Interactive && tool != null && !holding && context.ReadValueAsButton())
+        {
+            holding = true;
+            currentTool = tool.GetComponent<ToolBehaviour>().toolNumber;
+            tool.transform.SetParent(this.gameObject.transform, true);
+            Destroy(tool.GetComponent<Rigidbody>());
+        }
+        else if (holding && context.ReadValueAsButton())
+        {
+            holding = false;
+            tool.AddComponent<Rigidbody>();
+            tool.transform.SetParent(null, true);
         }
     }
 }
