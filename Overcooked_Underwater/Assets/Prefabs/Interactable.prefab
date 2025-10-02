@@ -274,8 +274,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.839984, y: 2.2675526, z: 3.9042995}
-  m_Center: {x: -0.08685464, y: 0.8931211, z: -1.4521495}
+  m_Size: {x: 0.98, y: 1.34, z: 6.257007}
+  m_Center: {x: 0, y: 0.5, z: -2.628504}
 --- !u!114 &5301885274748309665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,8 +434,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1922.7405, y: -1080.2417}
-  m_SizeDelta: {x: 0.2844, y: 0.4826}
+  m_AnchoredPosition: {x: -1921.9097, y: -1079.017}
+  m_SizeDelta: {x: 0.5228, y: 0.9412}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6741894654159820134
 CanvasRenderer:
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -492,8 +492,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

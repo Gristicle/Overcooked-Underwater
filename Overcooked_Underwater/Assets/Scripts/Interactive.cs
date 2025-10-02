@@ -5,7 +5,7 @@ using TMPro;
 
 public class Interactive : MonoBehaviour
 {
-    [SerializeField] float interactionTime;
+    public float interactionTime;
     public bool interacted;
     public int Time;
     [SerializeField] int currentTime;
@@ -15,6 +15,13 @@ public class Interactive : MonoBehaviour
     float currentFill;
     public int requiredTool;
     [SerializeField] TMP_Text Tool;
+    ScoreManager scoreManager;
+
+    private void Awake()
+    {
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+    }
+
     void Start()
     {
         setInteractive();
@@ -60,6 +67,7 @@ public class Interactive : MonoBehaviour
 
     void startInteraction()
     {
+        this.GetComponent<BoxCollider>().enabled = true;
         alert.GetComponent<Image>().color = new Color(0.7484276f, 0.5275412f, 0.1671017f);
         Tool.text = new string($"{requiredTool}");
         alert.enabled = true;
@@ -71,6 +79,7 @@ public class Interactive : MonoBehaviour
 
     void Complete()
     {
+        scoreManager.updateScore();
         Tool.text = new string("");
         interactionTime = 0;
         alert.enabled = false;
@@ -81,10 +90,11 @@ public class Interactive : MonoBehaviour
 
     void chooseTool()
     {
+        this.GetComponent<BoxCollider>().enabled = false;
         int Required = Random.Range(0, 2);
         if (Required == 1)
         {
-            requiredTool = Random.Range(1, 2);
+            requiredTool = Random.Range(1, 3);
         }
         else
         {

@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody.AddForce(movementVector.x/5, movementVector.y/5, 0, ForceMode.Impulse);
         Debug.Log(holding);
+        if (currentInteraction != null && currentInteraction.GetComponent<Interactive>().interactionTime > 1.9f)
+        {
+            currentInteraction = null;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -57,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             other.gameObject.GetComponent<Interactive>().interacted = false;
             Interactive = false;
+            currentInteraction = null;
         }
     }
 
