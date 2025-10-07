@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
             currentTool = tool.GetComponent<ToolBehaviour>().toolNumber;
             tool.transform.SetParent(this.gameObject.transform, true);
             Destroy(tool.GetComponent<Rigidbody>());
+            tool = null;
         }
         else if (holding && context.ReadValueAsButton())
         {
