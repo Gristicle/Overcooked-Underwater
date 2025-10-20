@@ -25,20 +25,25 @@ public class PlayerMovement : MonoBehaviour
         Rigidbody = this.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Rigidbody.AddForce(movementVector.x/5, movementVector.y/5, 0, ForceMode.Impulse);
         Debug.Log(holding);
-        if (currentInteraction != null && currentInteraction.GetComponent<Interactive>().interactionTime > 1.9f)
+        if (currentInteraction != null)
         {
-            currentInteraction = null;
+            if (currentInteraction.GetComponent<Interactive>() != null)
+            {
+                if (currentInteraction != null && currentInteraction.GetComponent<Interactive>().interactionTime > 1.9f)
+                {
+                    currentInteraction = null;
+                }
+            }
         }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        movementVector = context.ReadValue<Vector2>();
+        movementVector = context.ReadValue<Vector2>() * Time.deltaTime * 20;
     }
 
     private void OnTriggerStay(Collider other)
@@ -59,7 +64,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
         {
-            other.gameObject.GetComponent<Interactive>().interacted = false;
+            if(other.gameObject.GetComponent<Interactive>() != null)
+            {
+                other.gameObject.GetComponent<Interactive>().interacted = false;
+            }
             Interactive = false;
             currentInteraction = null;
         }
@@ -69,9 +77,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Interactive && currentInteraction != null)
         {
-            if(currentInteraction.GetComponent<Interactive>().requiredTool == 0 || currentInteraction.GetComponent<Interactive>().requiredTool == currentTool)
+            if(currentInteraction.GetComponent<Interactive>() != null)
             {
-                currentInteraction.GetComponent<Interactive>().interacted = true;
+                if (currentInteraction.GetComponent<Interactive>().requiredTool == 0 || currentInteraction.GetComponent<Interactive>().requiredTool == currentTool)
+                {
+                    currentInteraction.GetComponent<Interactive>().interacted = true;
+                }
+            }
+            else if (currentInteraction.gameObject.GetComponent<SharkBehaviour>() != null)
+            {
+                currentInteraction.gameObject.GetComponent<SharkBehaviour>().Reject();
             }
         }
     }
@@ -88,9 +103,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (holding && context.ReadValueAsButton())
         {
+            tool = GetComponentInChildren<ToolBehaviour>().gameObject;
             holding = false;
             tool.AddComponent<Rigidbody>();
             tool.transform.SetParent(null, true);
+            tool = null;
         }
     }
 }

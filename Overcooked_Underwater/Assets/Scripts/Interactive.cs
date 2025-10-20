@@ -32,7 +32,6 @@ public class Interactive : MonoBehaviour
         currentFill = fillBar.GetComponent<Image>().fillAmount;
     }
 
-    // Update is called once per frame
     void Update()
     {
         fillBar.GetComponent<Image>().fillAmount = interactionTime/2;
@@ -53,7 +52,7 @@ public class Interactive : MonoBehaviour
                 Complete();
             }
         }
-        if (alert.enabled && currentTime > -300 && currentTime < 0)
+        if (alert.enabled && currentTime > -500 && currentTime < 0)
         {
             alert.GetComponent<Image>().color = new Color(0.8156863f, 0, 0);
         }
@@ -61,7 +60,7 @@ public class Interactive : MonoBehaviour
 
     void setInteractive()
     {
-        Time = (Random.Range(10, 1000));
+        Time = (Random.Range(100, 3000));
         chooseTool();
     }
 
@@ -71,7 +70,7 @@ public class Interactive : MonoBehaviour
         alert.GetComponent<Image>().color = new Color(0.7484276f, 0.5275412f, 0.1671017f);
         Tool.text = new string($"{requiredTool}");
         alert.enabled = true;
-        currentTime = -500;
+        currentTime = -2000;
         interacted = false;
         interactable = true;
         interactionTime = 0;
