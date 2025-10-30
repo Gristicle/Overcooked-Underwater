@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Tool
+  - Algae
   layers:
   - Default
   - TransparentFX

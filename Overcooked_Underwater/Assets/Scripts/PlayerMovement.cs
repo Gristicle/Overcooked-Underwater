@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Rigidbody.AddForce(movementVector.x/5, movementVector.y/5, 0, ForceMode.Impulse);
-        Debug.Log(holding);
         if (currentInteraction != null)
         {
             if (currentInteraction.GetComponent<Interactive>() != null)
@@ -44,6 +43,14 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         movementVector = context.ReadValue<Vector2>() * Time.deltaTime * 20;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Algae"))
+        {
+            other.GetComponent<Algae>().Caught(this.gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -70,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
             }
             Interactive = false;
             currentInteraction = null;
+        }
+        if (other.CompareTag("Algae"))
+        {
+            other.GetComponent<Algae>().Released(this.gameObject);
         }
     }
 
@@ -98,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
             holding = true;
             currentTool = tool.GetComponent<ToolBehaviour>().toolNumber;
             tool.transform.SetParent(this.gameObject.transform, true);
+            tool.GetComponent<SphereCollider>().enabled = false;
             Destroy(tool.GetComponent<Rigidbody>());
             tool = null;
         }
@@ -107,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             holding = false;
             tool.AddComponent<Rigidbody>();
             tool.transform.SetParent(null, true);
+            tool.GetComponent<SphereCollider>().enabled = true;
             tool = null;
         }
     }

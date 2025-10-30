@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerControls",
     "maps": [
         {
@@ -126,7 +127,7 @@
                     "name": "",
                     "id": "414c6a5a-4360-40eb-9c0f-48e3eab280ff",
                     "path": "<Keyboard>/o",
-                    "interactions": "Press",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Drop",
