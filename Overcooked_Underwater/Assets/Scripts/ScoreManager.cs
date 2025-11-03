@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        scoreMult += Time.deltaTime / 10;
+        scoreMult += Time.deltaTime / 100;
         scoreCounter.text = new string($"Score: {score}");
     }
 
@@ -29,16 +29,30 @@ public class ScoreManager : MonoBehaviour
     }
     public void shark()
     {
-        StartCoroutine(SubtractScore());
+        StartCoroutine(SharkSubtractScore());
     }
     public void endShark()
     {
         StopAllCoroutines();
     }
-    IEnumerator SubtractScore()
+    IEnumerator SharkSubtractScore()
     {
         yield return new WaitForSeconds(2f);
-        score -= 1;
-        StartCoroutine(SubtractScore());
+        score -= 15;
+        StartCoroutine(SharkSubtractScore());
+    }
+    public void algae()
+    {
+        StartCoroutine(AlgaeSubtractScore());
+    }
+    public void stopAlgae()
+    {
+        StopAllCoroutines();
+    }
+    IEnumerator AlgaeSubtractScore()
+    {
+        yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 4f));
+        score -= UnityEngine.Random.Range(1, 6);
+        StartCoroutine(AlgaeSubtractScore());
     }
 }

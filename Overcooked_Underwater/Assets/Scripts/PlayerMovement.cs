@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject tool;
     int currentTool;
     bool holding;
+    public GameObject algae;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Algae"))
         {
-            other.GetComponent<Algae>().Caught(this.gameObject);
+            other.gameObject.GetComponent<Algae>().Caught(this.gameObject);
         }
     }
 
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Algae"))
         {
+            other.GetComponent<Algae>().amountCaught--;
             other.GetComponent<Algae>().Released(this.gameObject);
         }
     }
@@ -100,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
                 currentInteraction.gameObject.GetComponent<SharkBehaviour>().Reject();
             }
         }
+        if (algae != null)
+        {
+            algae.GetComponent<Algae>().Removed(this.gameObject);
+        }
     }
 
     public void Tool(InputAction.CallbackContext context)
@@ -115,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (holding && context.ReadValueAsButton())
         {
+            currentTool = 0;
             tool = GetComponentInChildren<ToolBehaviour>().gameObject;
             holding = false;
             tool.AddComponent<Rigidbody>();

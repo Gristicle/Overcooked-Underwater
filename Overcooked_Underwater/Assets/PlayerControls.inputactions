@@ -138,7 +138,7 @@
                     "name": "",
                     "id": "bcfbe204-1516-4002-9cf7-9dedbd91a68f",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Drop",
