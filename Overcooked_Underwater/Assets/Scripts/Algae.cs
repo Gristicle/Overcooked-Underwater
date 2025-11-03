@@ -7,6 +7,7 @@ public class Algae : MonoBehaviour
     Vector3 lerpLocation;
     Vector3 startLocation;
     ScoreManager scoreManager;
+    GameObject stuckPlayer;
     private void Awake()
     {
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
@@ -31,6 +32,7 @@ public class Algae : MonoBehaviour
         amountCaught++;
         if (amountCaught == 1)
         {
+            stuckPlayer = Player;
             scoreManager.algae();
             Debug.Log("Caught");
             Player.GetComponent<Rigidbody>().linearDamping = 20f;
@@ -41,9 +43,10 @@ public class Algae : MonoBehaviour
     public void Released(GameObject Player)
     {
         scoreManager.stopAlgae();
-        Player.GetComponent<PlayerMovement>().algae = null;
-        Player.GetComponent<Rigidbody>().linearDamping = 4f;
-        Player.GetComponent<PlayerMovement>().enabled = true;
+        stuckPlayer.GetComponent<PlayerMovement>().algae = null;
+        stuckPlayer.GetComponent<Rigidbody>().linearDamping = 4f;
+        stuckPlayer.GetComponent<PlayerMovement>().enabled = true;
+        stuckPlayer = null;
         Destroy(this.gameObject);
     }
 
