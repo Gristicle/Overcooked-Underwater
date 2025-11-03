@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
                 currentInteraction.gameObject.GetComponent<SharkBehaviour>().Reject();
             }
         }
-        if (algae != null)
+        if (algae != null && this.gameObject.GetComponent<PlayerMovement>().enabled)
         {
             algae.GetComponent<Algae>().Removed(this.gameObject);
         }
